@@ -1,0 +1,1815 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UAS Akuntansi Lembaga Keuangan 2025/2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<style>
+  :root {
+    --navy: #1a2744;
+    --navy-light: #243358;
+    --gold: #c8952a;
+    --gold-light: #f0c060;
+    --cream: #faf8f3;
+    --paper: #ffffff;
+    --text: #1c1c1c;
+    --text-muted: #5a5a6a;
+    --border: #ddd8cc;
+    --success: #1a6e3a;
+    --success-bg: #e8f5ee;
+    --danger: #8b1a1a;
+    --danger-bg: #fdf0f0;
+    --warn-bg: #fffbf0;
+    --warn-border: #e8c840;
+    --radius: 10px;
+    --shadow: 0 2px 16px rgba(26,39,68,0.10);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .site-header {
+    background: var(--navy);
+    color: white;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 32px;
+    border-bottom: 1px solid rgba(200,149,42,0.3);
+  }
+
+  .logo-mark {
+    width: 48px;
+    height: 48px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+
+  .header-info h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: #fff;
+  }
+
+  .header-info p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.5px;
+  }
+
+  .header-timer {
+    margin-left: auto;
+    text-align: right;
+  }
+
+  .timer-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  #timer-display {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--gold-light);
+    font-variant-numeric: tabular-nums;
+    font-family: 'Playfair Display', serif;
+  }
+
+  #timer-display.warning { color: #ff8888; }
+
+  /* PROGRESS BAR */
+  .progress-strip {
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
+    width: 0%;
+    transition: width 0.5s ease;
+  }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  /* EXAM CARD */
+  .exam-card {
+    background: var(--paper);
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .exam-card-header {
+    background: var(--navy);
+    color: white;
+    padding: 24px 32px;
+    text-align: center;
+  }
+
+  .exam-card-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    margin-bottom: 6px;
+    letter-spacing: 0.5px;
+  }
+
+  .exam-card-header .subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .exam-body {
+    padding: 28px 32px;
+  }
+
+  /* IDENTITY FORM */
+  .identity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .field-group.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .field-group label {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: var(--text-muted);
+  }
+
+  .field-group input, .field-group select {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .field-group input:focus, .field-group select:focus {
+    border-color: var(--navy);
+    background: #fff;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 28px 0;
+  }
+
+  /* SOAL BLOCK */
+  .soal-block {
+    margin-bottom: 36px;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .soal-block:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .soal-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .soal-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .soal-meta h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .soal-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    border: 1px solid;
+  }
+
+  .tag-bobot { background: #e8f0fb; color: #1a3a7a; border-color: #b5caf4; }
+  .tag-cpl { background: #f0f8ee; color: #1a5a2a; border-color: #99cc88; }
+  .tag-level { background: #fef6e8; color: #8a5200; border-color: #f0c060; }
+
+  .soal-narasi {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin-bottom: 18px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  /* SUB-SOAL */
+  .sub-soal {
+    margin-bottom: 20px;
+  }
+
+  .sub-soal-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .sub-soal-label .sub-letter {
+    width: 24px;
+    height: 24px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .answer-area {
+    width: 100%;
+    min-height: 140px;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    background: var(--cream);
+    resize: vertical;
+    transition: border-color 0.2s;
+    outline: none;
+    line-height: 1.7;
+  }
+
+  .answer-area:focus { border-color: var(--navy); background: #fff; }
+  .answer-area.filled { background: #fff; border-color: #a0b8d8; }
+
+  .char-count {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  /* ACTION BAR */
+  .action-bar {
+    background: var(--navy);
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 2px solid var(--gold);
+  }
+
+  .action-info {
+    color: rgba(255,255,255,0.7);
+    font-size: 13px;
+  }
+
+  .btn {
+    padding: 11px 24px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background: var(--gold-light);
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: white;
+    border: 1.5px solid rgba(255,255,255,0.3);
+  }
+
+  .btn-secondary:hover:not(:disabled) {
+    background: rgba(255,255,255,0.1);
+  }
+
+  .btn-success {
+    background: #1a6e3a;
+    color: white;
+  }
+
+  .btn-success:hover:not(:disabled) {
+    background: #22884a;
+    transform: translateY(-1px);
+  }
+
+  /* SCREEN OVERLAYS */
+  .screen {
+    display: none;
+  }
+
+  .screen.active {
+    display: block;
+  }
+
+  /* WELCOME SCREEN */
+  .welcome-content {
+    max-width: 640px;
+    margin: 40px auto;
+  }
+
+  .welcome-logo {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .welcome-logo .inst-badge {
+    display: inline-block;
+    background: var(--navy);
+    color: var(--gold-light);
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    padding: 8px 20px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(200,149,42,0.3);
+  }
+
+  .welcome-logo h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    color: var(--navy);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .welcome-logo p {
+    color: var(--text-muted);
+    font-size: 15px;
+  }
+
+  .info-box {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .info-box h3 {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--navy);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    padding: 4px 0;
+    border-bottom: 1px dashed rgba(0,0,0,0.07);
+  }
+
+  .info-row:last-child { border-bottom: none; }
+
+  .info-row .lbl { color: var(--text-muted); }
+  .info-row .val { font-weight: 600; color: var(--text); }
+
+  .rules-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .rules-list li {
+    display: flex;
+    gap: 10px;
+    padding: 7px 0;
+    font-size: 14px;
+    border-bottom: 1px dashed rgba(0,0,0,0.07);
+    align-items: flex-start;
+  }
+
+  .rules-list li:last-child { border-bottom: none; }
+
+  .rule-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .warn-banner {
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #6b4c00;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  /* RESULT SCREEN */
+  .result-summary {
+    text-align: center;
+    padding: 32px 24px;
+  }
+
+  .score-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 5px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    background: var(--cream);
+  }
+
+  .score-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+  }
+
+  .score-label {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .score-grade {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .result-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .result-card-header {
+    background: var(--navy);
+    color: white;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .result-card-header .rc-num {
+    width: 28px;
+    height: 28px;
+    background: var(--gold);
+    color: var(--navy);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .result-card-header h4 {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .result-card-body {
+    padding: 14px 16px;
+  }
+
+  .score-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .score-row:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  .score-row .srl { font-size: 12px; color: var(--text-muted); }
+  .score-row .srv { font-size: 15px; font-weight: 700; color: var(--navy); }
+
+  .cpl-chip {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    margin: 2px;
+  }
+
+  .cpl-achieved { background: var(--success-bg); color: var(--success); border: 1px solid #88cc99; }
+  .cpl-partial { background: #fff8e8; color: #7a5a00; border: 1px solid #e8c840; }
+  .cpl-not { background: var(--danger-bg); color: var(--danger); border: 1px solid #ee9999; }
+
+  .feedback-block {
+    background: var(--cream);
+    border-left: 3px solid var(--gold);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    margin-top: 10px;
+    line-height: 1.75;
+    color: var(--text);
+  }
+
+  /* BLOCKED / TERMINATED SCREEN */
+  .blocked-screen {
+    text-align: center;
+    padding: 60px 24px;
+  }
+
+  .blocked-icon {
+    font-size: 64px;
+    margin-bottom: 24px;
+  }
+
+  .blocked-screen h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    color: var(--danger);
+    margin-bottom: 12px;
+  }
+
+  .blocked-screen p {
+    color: var(--text-muted);
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  /* LOADING */
+  .loading-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26,39,68,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .loading-overlay.active {
+    display: flex;
+  }
+
+  .spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255,255,255,0.2);
+    border-top-color: var(--gold-light);
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+  }
+
+  .loading-text {
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  /* ANSWER REVIEW in results */
+  .answer-review {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.75;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin-top: 8px;
+  }
+
+  /* Tab warning banner */
+  #tab-warning {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #cc2222;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 9000;
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+  }
+
+  /* PDF-specific styles */
+  @media print {
+    .site-header, .action-bar, #tab-warning, .loading-overlay { display: none !important; }
+    .exam-card { box-shadow: none; border: 1px solid #ccc; }
+    body { background: white; }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .identity-grid { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .result-grid { grid-template-columns: 1fr; }
+    .action-bar { flex-direction: column; align-items: stretch; text-align: center; }
+    .header-top { padding: 12px 16px; }
+    .exam-body { padding: 20px 16px; }
+    .container { padding: 16px 10px 60px; }
+  }
+
+  .completed-stamp {
+    display: inline-block;
+    border: 3px solid var(--gold);
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+    margin-left: 12px;
+    vertical-align: middle;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<div id="tab-warning">⚠ Anda berpindah tab! Peringatan ini dicatat. <span id="tab-warn-count"></span></div>
+
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-text" id="loading-msg">Menilai jawaban Anda…</div>
+</div>
+
+<!-- STICKY HEADER -->
+<header class="site-header">
+  <div class="header-top">
+    <div class="logo-mark">P</div>
+    <div class="header-info">
+      <h1>UAS Akuntansi Lembaga Keuangan</h1>
+      <p>Politeknik Negeri Jember · Prodi Akuntansi Sektor Publik · TA 2025/2026</p>
+    </div>
+    <div class="header-timer" id="timer-section" style="display:none">
+      <div class="timer-label">Sisa Waktu</div>
+      <div id="timer-display">90:00</div>
+    </div>
+  </div>
+  <div class="progress-strip">
+    <div class="progress-fill" id="progress-fill"></div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- === SCREEN 1: WELCOME === -->
+  <div class="screen active" id="screen-welcome">
+    <div class="welcome-content">
+      <div class="welcome-logo">
+        <div class="inst-badge">Politeknik Negeri Jember</div>
+        <h1>Ujian Akhir Semester<br>Akuntansi Lembaga Keuangan</h1>
+        <p>Tahun Akademik 2025/2026 · Semester IV</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Informasi Ujian</h3>
+        <div class="info-grid">
+          <div class="info-row"><span class="lbl">Mata Ujian</span><span class="val">Akuntansi Lembaga Keuangan</span></div>
+          <div class="info-row"><span class="lbl">Dosen Pembuat Soal</span><span class="val">Siska Aprilia Oktaviani, S.E., M.Ak.</span></div>
+          <div class="info-row"><span class="lbl">Kode MK</span><span class="val">AKP140709</span></div>
+          <div class="info-row"><span class="lbl">Koordinator MK</span><span class="val">Prillinaya Yudhistira, S.E., M.Ak.</span></div>
+          <div class="info-row"><span class="lbl">SKS</span><span class="val">2-0</span></div>
+          <div class="info-row"><span class="lbl">Waktu</span><span class="val">90 menit</span></div>
+          <div class="info-row"><span class="lbl">Jumlah Soal</span><span class="val">4 Soal Esai</span></div>
+          <div class="info-row"><span class="lbl">Sifat Ujian</span><span class="val">Tertutup — Subyektif</span></div>
+        </div>
+      </div>
+
+      <div class="info-box">
+        <h3>Tata Tertib Ujian</h3>
+        <ul class="rules-list">
+          <li><span class="rule-icon">📋</span><span>Isi data identitas mahasiswa dengan lengkap dan benar sebelum memulai ujian.</span></li>
+          <li><span class="rule-icon">⏱️</span><span>Waktu ujian adalah <strong>90 menit</strong>. Timer akan berjalan otomatis setelah Anda menekan tombol "Mulai Ujian".</span></li>
+          <li><span class="rule-icon">🔒</span><span>Ujian hanya dapat dikerjakan <strong>satu kali</strong>. Setelah dikumpulkan, jawaban tidak dapat diubah.</span></li>
+          <li><span class="rule-icon">🚫</span><span><strong>Berpindah tab atau window</strong> akan terdeteksi. Setelah 3 kali peringatan, ujian akan otomatis dikunci.</span></li>
+          <li><span class="rule-icon">✍️</span><span>Jawab setiap soal dengan jelas, sistematis, dan menggunakan bahasa Indonesia yang baik.</span></li>
+          <li><span class="rule-icon">📊</span><span>Setiap soal memiliki bobot <strong>25%</strong>. Nilai dan status CPL akan dikalkulasi otomatis setelah pengumpulan.</span></li>
+          <li><span class="rule-icon">💾</span><span>Setelah penilaian, Anda dapat menyimpan hasil ujian dalam format PDF.</span></li>
+        </ul>
+      </div>
+
+      <div class="warn-banner">
+        <span style="font-size:20px; flex-shrink:0;">⚠️</span>
+        <div><strong>Perhatian:</strong> Pastikan koneksi internet Anda stabil. Jangan menutup atau me-refresh halaman ini selama ujian berlangsung. Jawaban tidak disimpan secara otomatis ke server eksternal.</div>
+      </div>
+
+      <div class="exam-card">
+        <div class="exam-card-header">
+          <h2>Data Identitas Mahasiswa</h2>
+          <p class="subtitle">Isi seluruh kolom dengan benar sebelum memulai</p>
+        </div>
+        <div class="exam-body">
+          <div class="identity-grid">
+            <div class="field-group">
+              <label>Nama Lengkap *</label>
+              <input type="text" id="inp-nama" placeholder="Nama sesuai KTM" required autocomplete="off">
+            </div>
+            <div class="field-group">
+              <label>NIM *</label>
+              <input type="text" id="inp-nim" placeholder="Nomor Induk Mahasiswa" required autocomplete="off">
+            </div>
+            <div class="field-group">
+              <label>Kelas *</label>
+              <select id="inp-kelas">
+                <option value="">— Pilih Kelas —</option>
+                <option>AKP-4A</option>
+                <option>AKP-4B</option>
+                <option>AKP-4C</option>
+                <option>AKP-4D</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Nomor Absen</label>
+              <input type="text" id="inp-absen" placeholder="Nomor urut presensi" autocomplete="off">
+            </div>
+            <div class="field-group full-width">
+              <label>Tanggal Ujian</label>
+              <input type="date" id="inp-tanggal">
+            </div>
+          </div>
+        </div>
+        <div class="action-bar">
+          <div class="action-info">Pastikan data identitas sudah benar sebelum memulai.</div>
+          <button class="btn btn-primary" id="btn-start" onclick="startExam()">
+            ▶ Mulai Ujian
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === SCREEN 2: EXAM === -->
+  <div class="screen" id="screen-exam">
+    <div class="exam-card">
+      <div class="exam-card-header">
+        <h2>Lembar Jawaban Ujian</h2>
+        <p class="subtitle">Jawab seluruh soal dengan jelas dan sistematis</p>
+      </div>
+      <div class="exam-body">
+
+        <!-- SOAL 1: Asuransi -->
+        <div class="soal-block" id="soal-1">
+          <div class="soal-header">
+            <div class="soal-number">1</div>
+            <div class="soal-meta">
+              <h3>Akuntansi Asuransi Jiwa</h3>
+              <div class="soal-tags">
+                <span class="tag tag-bobot">Bobot: 25%</span>
+                <span class="tag tag-cpl">CPL 5, CPL 6</span>
+                <span class="tag tag-level">Level: C3–C4</span>
+              </div>
+            </div>
+          </div>
+          <div class="soal-narasi">
+            Perusahaan Asuransi Jiwa <em>"Mitra Sejahtera"</em> menerima premi asuransi dari nasabahnya sebesar <strong>Rp150.000.000</strong> pada bulan Januari 2026. Pada bulan yang sama, perusahaan membayar klaim asuransi jiwa kepada ahli waris nasabah sebesar <strong>Rp80.000.000</strong> dan membentuk cadangan teknis premi sebesar <strong>Rp45.000.000</strong>.
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">a</span>
+              Jelaskan konsep dan unsur utama transaksi asuransi jiwa (premi, klaim, dan cadangan teknis) berdasarkan standar akuntansi yang berlaku!
+            </div>
+            <textarea class="answer-area" id="ans-1a" placeholder="Tuliskan penjelasan Anda di sini..." oninput="onAnswer(this, 'ans-1a'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-1a">0 karakter</div>
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">b</span>
+              Buatlah jurnal akuntansi atas transaksi penerimaan premi, pembayaran klaim, dan pembentukan cadangan teknis premi!
+            </div>
+            <textarea class="answer-area" id="ans-1b" placeholder="Contoh format jurnal:&#10;1. Penerimaan Premi:&#10;   Dr. ... Rp ...&#10;   Cr. ... Rp ..." oninput="onAnswer(this, 'ans-1b'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-1b">0 karakter</div>
+          </div>
+        </div>
+
+        <!-- SOAL 2: Leasing -->
+        <div class="soal-block" id="soal-2">
+          <div class="soal-header">
+            <div class="soal-number">2</div>
+            <div class="soal-meta">
+              <h3>Akuntansi Sewa (Leasing)</h3>
+              <div class="soal-tags">
+                <span class="tag tag-bobot">Bobot: 25%</span>
+                <span class="tag tag-cpl">CPL 5, CPL 6</span>
+                <span class="tag tag-level">Level: C3–C4</span>
+              </div>
+            </div>
+          </div>
+          <div class="soal-narasi">
+            <strong>PT Maju Leasing Indonesia</strong> menyewakan sebuah mesin produksi kepada <strong>PT Karya Mandiri</strong> dengan skema <em>finance lease</em> selama <strong>3 tahun</strong>. Nilai perolehan mesin <strong>Rp360.000.000</strong>, bunga efektif <strong>12% per tahun</strong>, dan angsuran dibayar setiap akhir tahun. PT Karya Mandiri (lessee) mencatat transaksi ini sebagai aset hak guna.<br><br>
+            Rumus anuitas: <code>A = P × [i(1+i)ⁿ / ((1+i)ⁿ − 1)]</code>
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">a</span>
+              Jelaskan perbedaan antara finance lease dan operating lease ditinjau dari substansi ekonomi dan perlakuan akuntansinya!
+            </div>
+            <textarea class="answer-area" id="ans-2a" placeholder="Tuliskan perbedaan finance lease vs operating lease..." oninput="onAnswer(this, 'ans-2a'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-2a">0 karakter</div>
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">b</span>
+              Hitunglah besar angsuran per tahun (anuitas) yang harus dibayarkan oleh PT Karya Mandiri dan buatlah tabel amortisasi selama 3 tahun!
+            </div>
+            <textarea class="answer-area" id="ans-2b" placeholder="Langkah perhitungan:&#10;A = 360.000.000 × [0,12(1,12)³ / ((1,12)³ - 1)] = ...&#10;&#10;Tabel Amortisasi:&#10;Tahun | Angsuran | Bunga | Pokok | Saldo" style="min-height:180px" oninput="onAnswer(this, 'ans-2b'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-2b">0 karakter</div>
+          </div>
+        </div>
+
+        <!-- SOAL 3: Pegadaian -->
+        <div class="soal-block" id="soal-3">
+          <div class="soal-header">
+            <div class="soal-number">3</div>
+            <div class="soal-meta">
+              <h3>Akuntansi Pegadaian</h3>
+              <div class="soal-tags">
+                <span class="tag tag-bobot">Bobot: 25%</span>
+                <span class="tag tag-cpl">CPL 5, CPL 6</span>
+                <span class="tag tag-level">Level: C3–C4</span>
+              </div>
+            </div>
+          </div>
+          <div class="soal-narasi">
+            <strong>Bapak Andi</strong> menggadaikan perhiasan emas seberat <strong>20 gram</strong> ke Perum Pegadaian pada tanggal <strong>2 Januari 2026</strong>. Harga taksiran emas <strong>Rp900.000/gram</strong>. Uang pinjaman yang diberikan sebesar <strong>85%</strong> dari nilai taksiran. Sewa modal dikenakan sebesar <strong>1,2% per 15 hari</strong>. Bapak Andi melunasi pinjamannya pada tanggal <strong>17 Januari 2026</strong> (15 hari).
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">a</span>
+              Hitunglah: (1) nilai taksiran agunan, (2) besar uang pinjaman, dan (3) sewa modal yang harus dibayar Bapak Andi saat pelunasan!
+            </div>
+            <textarea class="answer-area" id="ans-3a" placeholder="Nilai taksiran = 20 gram × Rp900.000 = ...&#10;Pinjaman = 85% × ... = ...&#10;Sewa modal = 1,2% × ... = ..." oninput="onAnswer(this, 'ans-3a'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-3a">0 karakter</div>
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">b</span>
+              Buatlah jurnal akuntansi pada Perum Pegadaian untuk transaksi: (1) pemberian pinjaman, (2) penerimaan pelunasan pokok pinjaman, dan (3) pengakuan pendapatan sewa modal!
+            </div>
+            <textarea class="answer-area" id="ans-3b" placeholder="1. Pemberian pinjaman:&#10;   Dr. ...&#10;   Cr. ...&#10;&#10;2. Penerimaan pelunasan:&#10;   Dr. ...&#10;   Cr. ...&#10;&#10;3. Pendapatan sewa modal:&#10;   Dr. ...&#10;   Cr. ..." oninput="onAnswer(this, 'ans-3b'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-3b">0 karakter</div>
+          </div>
+        </div>
+
+        <!-- SOAL 4: Fintech & Green Financing -->
+        <div class="soal-block" id="soal-4">
+          <div class="soal-header">
+            <div class="soal-number">4</div>
+            <div class="soal-meta">
+              <h3>Financial Technology & Green Financing</h3>
+              <div class="soal-tags">
+                <span class="tag tag-bobot">Bobot: 25%</span>
+                <span class="tag tag-cpl">CPL 6, CPL 9</span>
+                <span class="tag tag-level">Level: C4–C5</span>
+              </div>
+            </div>
+          </div>
+          <div class="soal-narasi">
+            Perkembangan <em>financial technology</em> (fintech) dan green financing telah membawa perubahan signifikan pada lembaga keuangan non-bank, seperti perusahaan asuransi, leasing, dan pegadaian. Sebagai seorang akuntan profesional, Anda diminta menganalisis fenomena tersebut.
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">a</span>
+              Jelaskan implikasi penerapan fintech terhadap praktik akuntansi dan pengendalian internal pada lembaga keuangan non-bank, serta berikan satu contoh nyata penerapannya!
+            </div>
+            <textarea class="answer-area" id="ans-4a" placeholder="Tuliskan analisis Anda mengenai implikasi fintech terhadap akuntansi dan pengendalian internal..." oninput="onAnswer(this, 'ans-4a'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-4a">0 karakter</div>
+          </div>
+          <div class="sub-soal">
+            <div class="sub-soal-label">
+              <span class="sub-letter">b</span>
+              Jelaskan konsep green financing pada lembaga keuangan non-bank dan bagaimana dampaknya terhadap pelaporan keberlanjutan (sustainability reporting) lembaga tersebut!
+            </div>
+            <textarea class="answer-area" id="ans-4b" placeholder="Tuliskan konsep green financing dan dampaknya terhadap sustainability reporting..." oninput="onAnswer(this, 'ans-4b'); updateProgress()"></textarea>
+            <div class="char-count" id="cc-4b">0 karakter</div>
+          </div>
+        </div>
+
+      </div><!-- .exam-body -->
+
+      <div class="action-bar">
+        <div class="action-info" id="submit-status">Isi semua kolom jawaban sebelum mengumpulkan.</div>
+        <button class="btn btn-primary" id="btn-submit" onclick="submitExam()" disabled>
+          ✓ Kumpulkan Jawaban
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- === SCREEN 3: BLOCKED === -->
+  <div class="screen" id="screen-blocked">
+    <div class="exam-card">
+      <div class="exam-body">
+        <div class="blocked-screen">
+          <div class="blocked-icon">🔒</div>
+          <h2>Ujian Dikunci</h2>
+          <p>Anda telah berpindah tab/window lebih dari batas yang diizinkan. Ujian Anda telah dikunci secara otomatis sebagai bentuk pengendalian integritas akademik.<br><br>Silakan hubungi dosen pengawas untuk klarifikasi lebih lanjut.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- === SCREEN 4: RESULTS === -->
+  <div class="screen" id="screen-result">
+    <div class="exam-card" id="result-content">
+      <div class="exam-card-header">
+        <h2>Hasil Ujian <span class="completed-stamp">Selesai</span></h2>
+        <p class="subtitle" id="result-student-name">—</p>
+      </div>
+      <div class="exam-body">
+
+        <div class="result-summary">
+          <div class="score-circle">
+            <div class="score-number" id="total-score">—</div>
+            <div class="score-label">dari 100</div>
+          </div>
+          <div class="score-grade" id="score-grade" style="color:var(--navy)">—</div>
+          <div style="color:var(--text-muted); font-size:14px;" id="score-verdict">—</div>
+        </div>
+
+        <div class="result-grid" id="result-detail-grid">
+          <!-- filled by JS -->
+        </div>
+
+      </div>
+      <div class="action-bar">
+        <div class="action-info">Ujian telah selesai dikerjakan dan dinilai.</div>
+        <button class="btn btn-success" onclick="savePDF()">
+          ⬇ Simpan sebagai PDF
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- .container -->
+
+<script>
+// ===== STATE =====
+let examStarted = false;
+let examSubmitted = false;
+let tabViolations = 0;
+const MAX_TAB_VIOLATIONS = 3;
+let timerInterval = null;
+let secondsLeft = 90 * 60;
+let studentData = {};
+let answers = {};
+
+const ANSWERS_KEY = 'uas_alk_2025_answers';
+const SUBMITTED_KEY = 'uas_alk_2025_submitted';
+
+// ===== ON LOAD =====
+window.addEventListener('load', () => {
+  // Set today's date
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('inp-tanggal').value = today;
+
+  // Check if already submitted
+  const savedSubmit = localStorage.getItem(SUBMITTED_KEY);
+  if (savedSubmit) {
+    const data = JSON.parse(savedSubmit);
+    showScreen('screen-result');
+    renderResults(data.results, data.student);
+    return;
+  }
+});
+
+// ===== TAB VISIBILITY =====
+document.addEventListener('visibilitychange', () => {
+  if (!examStarted || examSubmitted) return;
+  if (document.hidden) {
+    tabViolations++;
+    const warn = document.getElementById('tab-warning');
+    const warnCount = document.getElementById('tab-warn-count');
+    warnCount.textContent = `(Peringatan ${tabViolations}/${MAX_TAB_VIOLATIONS})`;
+    warn.style.display = 'block';
+    setTimeout(() => { warn.style.display = 'none'; }, 4000);
+
+    if (tabViolations >= MAX_TAB_VIOLATIONS) {
+      lockExam();
+    }
+  }
+});
+
+// Prevent context menu during exam
+document.addEventListener('contextmenu', e => {
+  if (examStarted && !examSubmitted) e.preventDefault();
+});
+
+// ===== LOCK EXAM =====
+function lockExam() {
+  examStarted = false;
+  clearInterval(timerInterval);
+  showScreen('screen-blocked');
+  localStorage.setItem(SUBMITTED_KEY, JSON.stringify({ locked: true, student: studentData }));
+}
+
+// ===== SCREENS =====
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ===== START EXAM =====
+function startExam() {
+  const nama = document.getElementById('inp-nama').value.trim();
+  const nim = document.getElementById('inp-nim').value.trim();
+  const kelas = document.getElementById('inp-kelas').value;
+
+  if (!nama || !nim || !kelas) {
+    alert('Mohon lengkapi Nama, NIM, dan Kelas terlebih dahulu.');
+    return;
+  }
+
+  studentData = {
+    nama,
+    nim,
+    kelas,
+    absen: document.getElementById('inp-absen').value.trim(),
+    tanggal: document.getElementById('inp-tanggal').value
+  };
+
+  examStarted = true;
+  showScreen('screen-exam');
+  document.getElementById('timer-section').style.display = 'block';
+  startTimer();
+  window.scrollTo(0, 0);
+}
+
+// ===== TIMER =====
+function startTimer() {
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    updateTimerDisplay();
+    if (secondsLeft <= 0) {
+      clearInterval(timerInterval);
+      alert('Waktu ujian habis! Jawaban Anda akan dikumpulkan otomatis.');
+      submitExam(true);
+    }
+  }, 1000);
+}
+
+function updateTimerDisplay() {
+  const m = Math.floor(secondsLeft / 60);
+  const s = secondsLeft % 60;
+  const display = document.getElementById('timer-display');
+  display.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  display.classList.toggle('warning', secondsLeft < 600);
+}
+
+// ===== ANSWER TRACKING =====
+function onAnswer(el, id) {
+  const val = el.value;
+  answers[id] = val;
+  el.classList.toggle('filled', val.length > 0);
+  const cc = document.getElementById('cc-' + id.replace('ans-', ''));
+  if (cc) cc.textContent = val.length + ' karakter';
+  checkAllAnswered();
+}
+
+function checkAllAnswered() {
+  const required = ['ans-1a','ans-1b','ans-2a','ans-2b','ans-3a','ans-3b','ans-4a','ans-4b'];
+  const allFilled = required.every(id => {
+    const el = document.getElementById(id);
+    return el && el.value.trim().length >= 20;
+  });
+  const btn = document.getElementById('btn-submit');
+  const status = document.getElementById('submit-status');
+  btn.disabled = !allFilled;
+  status.textContent = allFilled
+    ? 'Semua jawaban terisi. Siap dikumpulkan.'
+    : 'Isi semua kolom jawaban (minimal 20 karakter) sebelum mengumpulkan.';
+}
+
+function updateProgress() {
+  const required = ['ans-1a','ans-1b','ans-2a','ans-2b','ans-3a','ans-3b','ans-4a','ans-4b'];
+  const filled = required.filter(id => {
+    const el = document.getElementById(id);
+    return el && el.value.trim().length >= 20;
+  }).length;
+  const pct = (filled / required.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+}
+
+// ===== SUBMIT EXAM =====
+async function submitExam(forced = false) {
+  if (!forced) {
+    const confirm1 = confirm('Apakah Anda yakin ingin mengumpulkan jawaban? Setelah dikumpulkan, jawaban tidak dapat diubah.');
+    if (!confirm1) return;
+  }
+
+  clearInterval(timerInterval);
+  examStarted = false;
+  examSubmitted = true;
+
+  // Collect all answers
+  const required = ['ans-1a','ans-1b','ans-2a','ans-2b','ans-3a','ans-3b','ans-4a','ans-4b'];
+  required.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) answers[id] = el.value;
+  });
+
+  setLoading(true, 'Menilai jawaban Anda…');
+
+  // Simulate brief loading for UX
+  await new Promise(r => setTimeout(r, 1200));
+
+  try {
+    const results = gradeExam(answers);
+    const saveData = { results, student: studentData, timestamp: new Date().toISOString() };
+    localStorage.setItem(SUBMITTED_KEY, JSON.stringify(saveData));
+    setLoading(false);
+    showScreen('screen-result');
+    renderResults(results, studentData);
+    window.scrollTo(0, 0);
+  } catch (err) {
+    setLoading(false);
+    alert('Terjadi kesalahan saat penilaian: ' + err.message);
+    examStarted = true;
+    examSubmitted = false;
+  }
+}
+
+// ===== LOADING =====
+function setLoading(show, msg = '') {
+  const el = document.getElementById('loading');
+  const msgEl = document.getElementById('loading-msg');
+  el.classList.toggle('active', show);
+  if (msg) msgEl.textContent = msg;
+}
+
+// ===== LOCAL GRADING ENGINE =====
+// Mencocokkan kata kunci kunci jawaban terhadap jawaban mahasiswa.
+// Setiap kriteria memiliki bobot poin. Jawaban kosong / tidak relevan = 0.
+
+function normalize(text) {
+  return (text || '').toLowerCase()
+    .replace(/[.,;:()\-\/\\]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+// Cek apakah SEMUA kata dalam phrase muncul dalam jawaban (urutan bebas)
+function hasPhrase(text, phrase) {
+  const n = normalize(text);
+  const words = normalize(phrase).split(' ').filter(w => w.length > 2);
+  return words.every(w => n.includes(w));
+}
+
+// Cek apakah SALAH SATU dari beberapa alternatif terpenuhi
+function hasAny(text, alternatives) {
+  return alternatives.some(alt => hasPhrase(text, alt));
+}
+
+// Hitung skor berdasarkan daftar kriteria berbobot
+// criteria = [ { test: fn(text)=>bool, poin: number, label: string }, ... ]
+function scoreByCriteria(text, criteria, maxPoin) {
+  let earned = 0;
+  const detail = [];
+  for (const c of criteria) {
+    const hit = c.test(text);
+    if (hit) earned += c.poin;
+    detail.push({ label: c.label, poin: c.poin, hit });
+  }
+  // Cap at maxPoin, scale to 50
+  const raw = Math.min(earned, maxPoin);
+  const scaled = Math.round((raw / maxPoin) * 50);
+  return { scaled, detail, raw, maxPoin };
+}
+
+function gradeExam(ans) {
+
+  // ============================================================
+  // SOAL 1 — Asuransi Jiwa
+  // ============================================================
+
+  // 1a — Konsep premi, klaim, cadangan teknis (max 50)
+  const kriteria_1a = [
+    // PREMI (16 poin)
+    { poin: 6, label: 'Definisi premi sebagai iuran/pembayaran dari tertanggung/nasabah',
+      test: t => hasAny(t, ['premi adalah','premi merupakan','premi yaitu','premi ialah']) &&
+                 hasAny(t, ['tertanggung','nasabah','pemegang polis','pembayaran kepada perusahaan']) },
+    { poin: 5, label: 'Premi diakui sebagai pendapatan perusahaan asuransi',
+      test: t => hasAny(t, ['pendapatan premi','diakui sebagai pendapatan','dicatat pendapatan','pendapatan bagi perusahaan']) },
+    { poin: 5, label: 'Premi dikaitkan dengan perlindungan / risiko / manfaat',
+      test: t => hasAny(t, ['perlindungan','risiko','manfaat asuransi','imbalan perlindungan']) },
+    // KLAIM (17 poin)
+    { poin: 6, label: 'Definisi klaim sebagai kewajiban/pembayaran kepada tertanggung/ahli waris',
+      test: t => hasAny(t, ['klaim adalah','klaim merupakan','klaim yaitu','klaim ialah']) &&
+                 hasAny(t, ['tertanggung','ahli waris','beneficiary','pemegang polis']) },
+    { poin: 6, label: 'Klaim dicatat sebagai beban/kewajiban perusahaan asuransi',
+      test: t => hasAny(t, ['beban klaim','kewajiban klaim','klaim sebagai beban','biaya klaim']) },
+    { poin: 5, label: 'Klaim timbul karena peristiwa/musibah/kematian yang diasuransikan',
+      test: t => hasAny(t, ['kematian','musibah','peristiwa yang diasuransikan','risiko yang terjadi','kerugian']) },
+    // CADANGAN TEKNIS (17 poin)
+    { poin: 6, label: 'Definisi cadangan teknis sebagai dana yang disisihkan untuk kewajiban masa depan',
+      test: t => hasAny(t, ['cadangan teknis adalah','cadangan teknis merupakan','cadangan teknis yaitu']) &&
+                 hasAny(t, ['disisihkan','dicadangkan','kewajiban masa depan','manfaat mendatang','masa mendatang']) },
+    { poin: 6, label: 'Cadangan teknis bersifat liabilitas / kewajiban perusahaan',
+      test: t => hasAny(t, ['liabilitas','kewajiban perusahaan','utang kepada','dicatat sebagai kewajiban','cadangan sebagai kewajiban']) },
+    { poin: 5, label: 'Cadangan teknis menjaga solvabilitas / kemampuan bayar perusahaan',
+      test: t => hasAny(t, ['solvabilitas','kemampuan bayar','menjaga keuangan','cadangan wajib','regulasi','OJK','PSAK']) },
+  ];
+
+  // 1b — Jurnal tiga transaksi (max 50)
+  const kriteria_1b = [
+    // Jurnal premi (18 poin)
+    { poin: 6, label: 'Jurnal premi: Debit Kas',
+      test: t => hasAny(t, ['dr kas','debit kas','d kas','debet kas']) &&
+                 hasAny(t, ['150','150.000.000','150000000']) },
+    { poin: 6, label: 'Jurnal premi: Kredit Pendapatan Premi',
+      test: t => hasAny(t, ['cr pendapatan premi','kredit pendapatan premi','k pendapatan premi','pendapatan premi 150']) },
+    { poin: 6, label: 'Nominal jurnal premi benar Rp150.000.000',
+      test: t => normalize(t).includes('150') &&
+                 hasAny(t, ['pendapatan premi','penerimaan premi']) },
+    // Jurnal klaim (16 poin)
+    { poin: 6, label: 'Jurnal klaim: Debit Beban Klaim',
+      test: t => hasAny(t, ['dr beban klaim','debit beban klaim','d beban klaim','beban klaim 80']) },
+    { poin: 4, label: 'Jurnal klaim: Kredit Kas',
+      test: t => hasAny(t, ['cr kas','kredit kas','k kas']) &&
+                 hasAny(t, ['80','80.000.000','80000000']) },
+    { poin: 6, label: 'Nominal jurnal klaim benar Rp80.000.000',
+      test: t => normalize(t).includes('80') &&
+                 hasAny(t, ['beban klaim','pembayaran klaim']) },
+    // Jurnal cadangan teknis (16 poin)
+    { poin: 6, label: 'Jurnal cadangan teknis: Debit Beban Cadangan',
+      test: t => hasAny(t, ['dr beban cadangan','debit beban cadangan','beban cadangan teknis']) },
+    { poin: 4, label: 'Jurnal cadangan teknis: Kredit Cadangan Teknis Premi',
+      test: t => hasAny(t, ['cr cadangan teknis','kredit cadangan teknis','cadangan teknis premi 45']) },
+    { poin: 6, label: 'Nominal jurnal cadangan teknis benar Rp45.000.000',
+      test: t => normalize(t).includes('45') &&
+                 hasAny(t, ['cadangan teknis','cadangan premi']) },
+  ];
+
+  const s1a = scoreByCriteria(ans['ans-1a'] || '', kriteria_1a, 50);
+  const s1b = scoreByCriteria(ans['ans-1b'] || '', kriteria_1b, 50);
+  const total1 = s1a.scaled + s1b.scaled;
+
+  // ============================================================
+  // SOAL 2 — Leasing
+  // ============================================================
+
+  const kriteria_2a = [
+    // Finance lease (25 poin)
+    { poin: 8, label: 'Finance lease: definisi pemindahan risiko & manfaat ke lessee',
+      test: t => hasAny(t, ['finance lease','sewa pembiayaan','sewa guna usaha dengan hak opsi']) &&
+                 hasAny(t, ['risiko','manfaat ekonomis','hak kepemilikan','dialihkan ke lessee','ditanggung lessee']) },
+    { poin: 9, label: 'Finance lease: dicatat sebagai aset dan liabilitas oleh lessee (PSAK 73)',
+      test: t => hasAny(t, ['aset hak guna','right of use','dicatat sebagai aset','diakui sebagai aset']) &&
+                 hasAny(t, ['liabilitas sewa','kewajiban sewa','utang sewa','dicatat sebagai kewajiban']) },
+    { poin: 8, label: 'Finance lease: lessor tidak mencatat aset tetap, mencatat piutang sewa',
+      test: t => hasAny(t, ['piutang sewa','piutang pembiayaan','investasi bersih','lessor mencatat piutang']) ||
+                 hasAny(t, ['lessee dapat memiliki','opsi beli','kepemilikan beralih','manfaat ekonomis lessee']) },
+    // Operating lease (25 poin)
+    { poin: 8, label: 'Operating lease: definisi risiko tetap pada lessor',
+      test: t => hasAny(t, ['operating lease','sewa operasi','sewa guna usaha tanpa hak opsi']) &&
+                 hasAny(t, ['risiko tetap','risiko pada lessor','kepemilikan tetap lessor','tidak dialihkan']) },
+    { poin: 9, label: 'Operating lease: lessee mencatat sebagai beban sewa',
+      test: t => hasAny(t, ['beban sewa','biaya sewa','dicatat sebagai beban','diakui sebagai beban sewa']) &&
+                 hasAny(t, ['lessee','penyewa']) },
+    { poin: 8, label: 'Operating lease: aset tetap dicatat di laporan lessor',
+      test: t => hasAny(t, ['lessor mencatat aset','aset tetap lessor','aset tetap pada lessor','disusutkan lessor']) ||
+                 hasAny(t, ['tidak ada aset','tidak diakui aset','lessee tidak mencatat aset']) },
+  ];
+
+  const kriteria_2b = [
+    // Rumus anuitas dan hasil (20 poin)
+    { poin: 8, label: 'Menggunakan rumus anuitas A = P × [i(1+i)^n / ((1+i)^n - 1)]',
+      test: t => hasAny(t, ['anuitas','a =','rumus']) &&
+                 hasAny(t, ['0,12','12%','0.12']) &&
+                 hasAny(t, ['360','360.000.000','360000000']) },
+    { poin: 8, label: 'Hasil angsuran benar sekitar Rp149.868.000 (±5 juta toleransi)',
+      test: t => {
+        const n = normalize(t).replace(/\./g,'').replace(/,/g,'.');
+        // cari angka sekitar 149000000-154000000
+        const matches = n.match(/1[4-5][0-9][0-9][0-9][0-9][0-9]/g) || [];
+        return matches.some(m => { const v=parseInt(m); return v>=144000&&v<=155000; }) ||
+               n.includes('149') || n.includes('149868') || n.includes('149.868');
+      } },
+    { poin: 4, label: 'Menyebutkan angsuran per tahun dengan satuan yang benar',
+      test: t => hasAny(t, ['per tahun','pertahun','setiap tahun','tiap tahun','/tahun']) },
+    // Tabel amortisasi (30 poin) — dicek per tahun
+    { poin: 5, label: 'Tabel amortisasi memiliki kolom: bunga, pokok/angsuran, saldo',
+      test: t => hasAny(t, ['bunga','interest']) &&
+                 hasAny(t, ['pokok','principal','angsuran pokok']) &&
+                 hasAny(t, ['saldo','balance','sisa']) },
+    { poin: 9, label: 'Tahun 1: bunga ≈43.200.000 dan pokok ≈106.668.000',
+      test: t => {
+        const n = normalize(t).replace(/[.,]/g,'');
+        return (n.includes('43200') || n.includes('43.200') || n.includes('43 200')) &&
+               (n.includes('106668') || n.includes('106.668') || n.includes('106 668') || n.includes('106669') || n.includes('106'));
+      } },
+    { poin: 8, label: 'Tahun 2: bunga ≈30.400.000 dan pokok ≈119.468.000',
+      test: t => {
+        const n = normalize(t).replace(/[.,]/g,'');
+        return (n.includes('30400') || n.includes('30.400') || n.includes('30 400')) &&
+               (n.includes('119468') || n.includes('119.468') || n.includes('119 468') || n.includes('119'));
+      } },
+    { poin: 8, label: 'Tahun 3: bunga ≈16.064.000 dan pokok ≈133.864.000',
+      test: t => {
+        const n = normalize(t).replace(/[.,]/g,'');
+        return (n.includes('16064') || n.includes('16.064') || n.includes('16 064')) &&
+               (n.includes('133864') || n.includes('133.864') || n.includes('133 864') || n.includes('133'));
+      } },
+  ];
+
+  const s2a = scoreByCriteria(ans['ans-2a'] || '', kriteria_2a, 50);
+  const s2b = scoreByCriteria(ans['ans-2b'] || '', kriteria_2b, 50);
+  const total2 = s2a.scaled + s2b.scaled;
+
+  // ============================================================
+  // SOAL 3 — Pegadaian
+  // ============================================================
+
+  const kriteria_3a = [
+    // Nilai taksiran (16 poin)
+    { poin: 6, label: 'Rumus nilai taksiran: 20 gram × Rp900.000/gram',
+      test: t => hasAny(t, ['20 gram','20gram','20 x','20×','20 *']) &&
+                 hasAny(t, ['900.000','900000','900 000']) },
+    { poin: 5, label: 'Hasil nilai taksiran = Rp18.000.000',
+      test: t => hasAny(t, ['18.000.000','18000000','18 000 000','rp18','rp 18']) },
+    { poin: 5, label: 'Menyebut istilah nilai taksiran/agunan',
+      test: t => hasAny(t, ['nilai taksiran','taksiran agunan','harga taksiran','nilai agunan']) },
+    // Uang pinjaman (17 poin)
+    { poin: 6, label: 'Rumus pinjaman: 85% × nilai taksiran',
+      test: t => hasAny(t, ['85%','85 %','85persen','0,85','0.85']) &&
+                 hasAny(t, ['18.000.000','18000000','taksiran','nilai taksiran']) },
+    { poin: 6, label: 'Hasil pinjaman = Rp15.300.000',
+      test: t => hasAny(t, ['15.300.000','15300000','15 300 000','rp15.3','rp 15.300']) },
+    { poin: 5, label: 'Menyebut istilah uang pinjaman/UP/marhun bih',
+      test: t => hasAny(t, ['uang pinjaman','besar pinjaman','pinjaman yang diberikan','marhun bih','UP']) },
+    // Sewa modal (17 poin)
+    { poin: 6, label: 'Rumus sewa modal: 1,2% × pinjaman',
+      test: t => hasAny(t, ['1,2%','1.2%','1,2 %','sewa modal']) &&
+                 hasAny(t, ['15.300.000','15300000','pinjaman']) },
+    { poin: 6, label: 'Hasil sewa modal = Rp183.600',
+      test: t => hasAny(t, ['183.600','183600','183 600','rp183','rp 183']) },
+    { poin: 5, label: 'Menyebut periode 15 hari dalam perhitungan sewa modal',
+      test: t => hasAny(t, ['15 hari','per 15 hari','15hari','satu periode']) },
+  ];
+
+  const kriteria_3b = [
+    // Jurnal 1: Pemberian pinjaman (18 poin)
+    { poin: 6, label: 'Jurnal pemberian pinjaman: Debit Pinjaman yang Diberikan',
+      test: t => hasAny(t, ['dr pinjaman yang diberikan','debit pinjaman yang diberikan',
+                             'd pinjaman','pinjaman yang diberikan 15']) },
+    { poin: 6, label: 'Jurnal pemberian pinjaman: Kredit Kas',
+      test: t => hasAny(t, ['cr kas','kredit kas','k kas']) &&
+                 hasAny(t, ['15.300.000','15300000','15300']) &&
+                 hasAny(t, ['pinjaman','gadai','pemberian']) },
+    { poin: 6, label: 'Nominal pemberian pinjaman benar Rp15.300.000',
+      test: t => normalize(t).replace(/[.,]/g,'').includes('15300000') ||
+                 hasAny(t, ['15.300.000','15 300 000']) },
+    // Jurnal 2: Pelunasan pokok (16 poin)
+    { poin: 6, label: 'Jurnal pelunasan: Debit Kas',
+      test: t => hasAny(t, ['dr kas','debit kas','d kas']) &&
+                 hasAny(t, ['15.300.000','15300000','pelunasan','pokok']) },
+    { poin: 4, label: 'Jurnal pelunasan: Kredit Pinjaman yang Diberikan',
+      test: t => hasAny(t, ['cr pinjaman','kredit pinjaman','k pinjaman yang diberikan']) &&
+                 hasAny(t, ['15.300.000','15300','pelunasan']) },
+    { poin: 6, label: 'Nominal pelunasan pokok benar Rp15.300.000',
+      test: t => normalize(t).replace(/[.,]/g,'').match(/15300000/) !== null ||
+                 hasAny(t, ['15.300.000','15 300 000']) },
+    // Jurnal 3: Sewa modal (16 poin)
+    { poin: 6, label: 'Jurnal sewa modal: Debit Kas',
+      test: t => hasAny(t, ['dr kas','debit kas']) &&
+                 hasAny(t, ['183.600','183600','sewa modal']) },
+    { poin: 4, label: 'Jurnal sewa modal: Kredit Pendapatan Sewa Modal',
+      test: t => hasAny(t, ['cr pendapatan sewa','kredit pendapatan sewa','pendapatan sewa modal']) },
+    { poin: 6, label: 'Nominal sewa modal benar Rp183.600',
+      test: t => hasAny(t, ['183.600','183600','183 600']) },
+  ];
+
+  const s3a = scoreByCriteria(ans['ans-3a'] || '', kriteria_3a, 50);
+  const s3b = scoreByCriteria(ans['ans-3b'] || '', kriteria_3b, 50);
+  const total3 = s3a.scaled + s3b.scaled;
+
+  // ============================================================
+  // SOAL 4 — Fintech & Green Financing
+  // ============================================================
+
+  const kriteria_4a = [
+    // Implikasi fintech terhadap akuntansi (25 poin)
+    { poin: 7, label: 'Fintech mengotomatisasi pencatatan / real-time recording',
+      test: t => hasAny(t, ['otomatis','automatis','real time','real-time','pencatatan otomatis','digitalisasi akuntansi']) },
+    { poin: 6, label: 'Meningkatkan efisiensi dan akurasi data keuangan',
+      test: t => hasAny(t, ['efisiensi','akurasi','ketepatan','efektif']) &&
+                 hasAny(t, ['akuntansi','pencatatan','laporan keuangan','data keuangan']) },
+    { poin: 6, label: 'Memerlukan penguatan pengendalian internal berbasis teknologi',
+      test: t => hasAny(t, ['pengendalian internal','internal control','sistem pengendalian']) &&
+                 hasAny(t, ['teknologi','digital','siber','cybersecurity','enkripsi','keamanan']) },
+    { poin: 6, label: 'Menyebut unsur spesifik: enkripsi/audit trail/otorisasi digital/keamanan siber',
+      test: t => hasAny(t, ['enkripsi','audit trail','otorisasi digital','tanda tangan digital',
+                             'keamanan siber','two factor','autentikasi','firewall']) },
+    // Contoh nyata (25 poin)
+    { poin: 8, label: 'Menyebutkan contoh nyata penerapan fintech di LK non-bank',
+      test: t => hasAny(t, ['p2p lending','peer to peer','p2p','paylater','pay later',
+                             'digital payment','insurtech','leasing digital','fintech lending',
+                             'OJK berizin','ojk','marketplace lending']) },
+    { poin: 9, label: 'Menjelaskan bagaimana contoh tersebut memengaruhi akuntansi/pengendalian',
+      test: t => hasAny(t, ['dicatat secara digital','transaksi digital','pencatatan elektronik',
+                             'sistem informasi','ERP','software akuntansi','cloud accounting']) ||
+                 (hasAny(t, ['p2p','insurtech','leasing digital']) &&
+                  hasAny(t, ['akuntansi','pencatatan','jurnal','laporan'])) },
+    { poin: 8, label: 'Menganalisis risiko atau tantangan dari penerapan fintech',
+      test: t => hasAny(t, ['risiko','tantangan','kelemahan','ancaman','fraud','penipuan','data breach',
+                             'keamanan data','penyalahgunaan','regulasi fintech']) },
+  ];
+
+  const kriteria_4b = [
+    // Konsep Green Financing (25 poin)
+    { poin: 8, label: 'Definisi green financing sebagai pembiayaan proyek ramah lingkungan',
+      test: t => hasAny(t, ['green financing','pembiayaan hijau','green finance']) &&
+                 hasAny(t, ['ramah lingkungan','lingkungan hidup','berkelanjutan','sustainability',
+                             'proyek hijau','emisi karbon','energi terbarukan']) },
+    { poin: 8, label: 'Contoh green financing: energi terbarukan/efisiensi energi/transportasi hijau',
+      test: t => hasAny(t, ['energi terbarukan','panel surya','solar','angin','geothermal',
+                             'efisiensi energi','kendaraan listrik','green bond','obligasi hijau',
+                             'kredit hijau','pembiayaan berkelanjutan']) },
+    { poin: 9, label: 'Green financing dikaitkan dengan ESG atau regulasi OJK/POJK',
+      test: t => hasAny(t, ['esg','environmental social governance','POJK','OJK','taksonomi hijau',
+                             'green taxonomy','sustainable finance','keuangan berkelanjutan']) },
+    // Dampak sustainability reporting (25 poin)
+    { poin: 8, label: 'LK non-bank wajib melaporkan dampak lingkungan dalam sustainability report',
+      test: t => hasAny(t, ['sustainability report','laporan keberlanjutan','laporan berkelanjutan',
+                             'sustainability reporting']) &&
+                 hasAny(t, ['wajib','harus','diwajibkan','melaporkan','pengungkapan']) },
+    { poin: 9, label: 'Mengacu pada standar pelaporan: GRI / TCFD / SASB / IFRS S1-S2',
+      test: t => hasAny(t, ['GRI','global reporting initiative','TCFD','SASB',
+                             'IFRS S1','IFRS S2','standar pelaporan','kerangka pelaporan']) },
+    { poin: 8, label: 'Dampak: meningkatkan transparansi, kepercayaan pemangku kepentingan, reputasi',
+      test: t => hasAny(t, ['transparansi','kepercayaan','reputasi','stakeholder',
+                             'pemangku kepentingan','investor','akuntabilitas','kredibilitas']) &&
+                 hasAny(t, ['meningkat','bertambah','lebih baik','mendorong']) },
+  ];
+
+  const s4a = scoreByCriteria(ans['ans-4a'] || '', kriteria_4a, 50);
+  const s4b = scoreByCriteria(ans['ans-4b'] || '', kriteria_4b, 50);
+  const total4 = s4a.scaled + s4b.scaled;
+
+  // ============================================================
+  // Generate feedback per soal
+  // ============================================================
+  function buildFeedback(num, sa, sb, kunciA, kunciB) {
+    const total = sa.scaled + sb.scaled;
+    const hitA = sa.detail.filter(d => d.hit).map(d => d.label);
+    const missA = sa.detail.filter(d => !d.hit).map(d => d.label);
+    const missB = sb.detail.filter(d => !d.hit).map(d => d.label);
+
+    let fb = '';
+    if (total >= 85) {
+      fb = `Jawaban sangat baik dan lengkap. `;
+    } else if (total >= 70) {
+      fb = `Jawaban sudah cukup baik. `;
+    } else if (total >= 50) {
+      fb = `Jawaban sebagian sudah tepat, namun perlu dilengkapi. `;
+    } else if (total >= 25) {
+      fb = `Jawaban masih kurang memadai dan perlu perbaikan signifikan. `;
+    } else {
+      fb = `Jawaban belum sesuai dengan kunci jawaban yang diharapkan. `;
+    }
+
+    if (missA.length > 0 && total < 90) {
+      fb += `Poin yang belum terpenuhi pada bagian (a): ${missA.slice(0,2).join('; ')}. `;
+    }
+    if (missB.length > 0 && total < 90) {
+      fb += `Poin yang belum terpenuhi pada bagian (b): ${missB.slice(0,2).join('; ')}. `;
+    }
+
+    // Kunci jawaban selalu ditampilkan
+    fb += `<br><br><strong>Kunci Jawaban:</strong><br>`;
+    fb += `<em>(a)</em> ${kunciA}<br><em>(b)</em> ${kunciB}`;
+    return fb;
+  }
+
+  const kunci = {
+    1: {
+      a: 'Premi: pendapatan asuransi yang diterima dari tertanggung sebagai imbalan perlindungan. Klaim: kewajiban/beban yang dibayarkan kepada tertanggung/ahli waris ketika terjadi peristiwa yang diasuransikan. Cadangan teknis: dana yang disisihkan oleh perusahaan asuransi untuk memenuhi kewajiban manfaat di masa mendatang (bersifat liabilitas).',
+      b: 'Penerimaan premi: Dr. Kas Rp150.000.000 / Cr. Pendapatan Premi Rp150.000.000. Pembayaran klaim: Dr. Beban Klaim Rp80.000.000 / Cr. Kas Rp80.000.000. Cadangan teknis: Dr. Beban Cadangan Teknis Rp45.000.000 / Cr. Cadangan Teknis Premi Rp45.000.000.'
+    },
+    2: {
+      a: 'Finance lease: risiko dan manfaat ekonomis dialihkan ke lessee; lessee mencatat aset hak guna dan liabilitas sewa; lessor mencatat piutang pembiayaan. Operating lease: risiko kepemilikan tetap pada lessor; lessee mencatat sebagai beban sewa; lessor mencatat aset dan menyusutkannya.',
+      b: 'A = 360.000.000 × [0,12(1,12)³ / ((1,12)³−1)] = 360.000.000 × 0,41635 ≈ Rp149.868.000/tahun. Tahun 1: Bunga=43.200.000, Pokok=106.668.000, Saldo=253.332.000. Tahun 2: Bunga=30.400.000, Pokok=119.468.000, Saldo=133.864.000. Tahun 3: Bunga=16.064.000, Pokok=133.864.000, Saldo=0.'
+    },
+    3: {
+      a: 'Nilai taksiran = 20 gram × Rp900.000 = Rp18.000.000. Uang pinjaman = 85% × Rp18.000.000 = Rp15.300.000. Sewa modal = 1,2% × Rp15.300.000 = Rp183.600.',
+      b: 'Pemberian pinjaman: Dr. Pinjaman yang Diberikan Rp15.300.000 / Cr. Kas Rp15.300.000. Pelunasan pokok: Dr. Kas Rp15.300.000 / Cr. Pinjaman yang Diberikan Rp15.300.000. Sewa modal: Dr. Kas Rp183.600 / Cr. Pendapatan Sewa Modal Rp183.600.'
+    },
+    4: {
+      a: 'Fintech mengotomatisasi pencatatan akuntansi secara real-time, meningkatkan efisiensi dan akurasi laporan keuangan. Namun, memerlukan penguatan pengendalian internal berbasis teknologi (enkripsi data, otorisasi digital, audit trail). Contoh: P2P lending mencatat transaksi pembiayaan secara digital dan real-time melalui platform teknologi.',
+      b: 'Green financing adalah skema pembiayaan yang mendukung proyek/kegiatan ramah lingkungan (energi terbarukan, efisiensi energi, kendaraan listrik). Dampaknya: LK non-bank diwajibkan mengungkapkan dampak lingkungan dalam sustainability report mengacu pada standar GRI/TCFD/IFRS S1-S2, sehingga meningkatkan transparansi dan kepercayaan pemangku kepentingan.'
+    }
+  };
+
+  const fb1 = buildFeedback(1, s1a, s1b, kunci[1].a, kunci[1].b);
+  const fb2 = buildFeedback(2, s2a, s2b, kunci[2].a, kunci[2].b);
+  const fb3 = buildFeedback(3, s3a, s3b, kunci[3].a, kunci[3].b);
+  const fb4 = buildFeedback(4, s4a, s4b, kunci[4].a, kunci[4].b);
+
+  function cplStatus(total) {
+    if (total >= 70) return 'Tercapai';
+    if (total >= 50) return 'Tercapai Sebagian';
+    return 'Belum Tercapai';
+  }
+
+  return {
+    soal: [
+      { num: 1, topic: 'Akuntansi Asuransi Jiwa', cpl: ['CPL 5','CPL 6'],
+        nilai_a: s1a.scaled, nilai_b: s1b.scaled, total: total1,
+        status_cpl: cplStatus(total1), feedback: fb1,
+        jawaban: { a: ans['ans-1a'], b: ans['ans-1b'] } },
+      { num: 2, topic: 'Akuntansi Leasing', cpl: ['CPL 5','CPL 6'],
+        nilai_a: s2a.scaled, nilai_b: s2b.scaled, total: total2,
+        status_cpl: cplStatus(total2), feedback: fb2,
+        jawaban: { a: ans['ans-2a'], b: ans['ans-2b'] } },
+      { num: 3, topic: 'Akuntansi Pegadaian', cpl: ['CPL 5','CPL 6'],
+        nilai_a: s3a.scaled, nilai_b: s3b.scaled, total: total3,
+        status_cpl: cplStatus(total3), feedback: fb3,
+        jawaban: { a: ans['ans-3a'], b: ans['ans-3b'] } },
+      { num: 4, topic: 'Fintech & Green Financing', cpl: ['CPL 6','CPL 9'],
+        nilai_a: s4a.scaled, nilai_b: s4b.scaled, total: total4,
+        status_cpl: cplStatus(total4), feedback: fb4,
+        jawaban: { a: ans['ans-4a'], b: ans['ans-4b'] } },
+    ]
+  };
+}
+
+// ===== RENDER RESULTS =====
+function renderResults(data, student) {
+  const nama = student ? student.nama : '—';
+  const nim = student ? student.nim : '—';
+  const kelas = student ? student.kelas : '—';
+
+  document.getElementById('result-student-name').textContent =
+    `${nama} · ${nim} · ${kelas}`;
+
+  if (data.locked) {
+    document.getElementById('result-detail-grid').innerHTML =
+      '<div style="grid-column:1/-1;text-align:center;color:var(--danger);font-size:16px;padding:24px;">Ujian dikunci karena pelanggaran integritas.</div>';
+    document.getElementById('total-score').textContent = '0';
+    document.getElementById('score-grade').textContent = 'Tidak Valid';
+    document.getElementById('score-verdict').textContent = 'Hubungi dosen pengawas.';
+    return;
+  }
+
+  const soalList = data.soal || [];
+  const totalNilai = soalList.reduce((sum, s) => sum + (s.total || 0), 0) / 4;
+  const nilaiAkhir = Math.round(totalNilai);
+
+  document.getElementById('total-score').textContent = nilaiAkhir;
+
+  let grade, verdict, gradeColor;
+  if (nilaiAkhir >= 85) { grade = 'A'; verdict = 'Sangat Memuaskan — Lulus'; gradeColor = '#1a6e3a'; }
+  else if (nilaiAkhir >= 75) { grade = 'B'; verdict = 'Memuaskan — Lulus'; gradeColor = '#1a4a9a'; }
+  else if (nilaiAkhir >= 65) { grade = 'C'; verdict = 'Cukup — Lulus'; gradeColor = '#8a5200'; }
+  else if (nilaiAkhir >= 55) { grade = 'D'; verdict = 'Kurang — Tidak Lulus'; gradeColor = '#cc4400'; }
+  else { grade = 'E'; verdict = 'Sangat Kurang — Tidak Lulus'; gradeColor = '#cc2222'; }
+
+  document.getElementById('score-grade').textContent = `Grade: ${grade}`;
+  document.getElementById('score-grade').style.color = gradeColor;
+  document.getElementById('score-verdict').textContent = verdict;
+
+  const soalTopics = [
+    'Akuntansi Asuransi Jiwa',
+    'Akuntansi Leasing',
+    'Akuntansi Pegadaian',
+    'Fintech & Green Financing'
+  ];
+
+  const grid = document.getElementById('result-detail-grid');
+  grid.innerHTML = soalList.map(s => {
+    const cplClass = s.status_cpl === 'Tercapai' ? 'cpl-achieved'
+      : s.status_cpl === 'Tercapai Sebagian' ? 'cpl-partial' : 'cpl-not';
+
+    const cplChips = (s.cpl || []).map(c =>
+      `<span class="cpl-chip ${cplClass}">${c}: ${s.status_cpl}</span>`
+    ).join('');
+
+    return `
+    <div class="result-card">
+      <div class="result-card-header">
+        <div class="rc-num">${s.num}</div>
+        <h4>${s.topic || soalTopics[s.num - 1]}</h4>
+      </div>
+      <div class="result-card-body">
+        <div class="score-row">
+          <span class="srl">Sub-soal (a)</span>
+          <span class="srv">${s.nilai_a || 0} / 50</span>
+        </div>
+        <div class="score-row">
+          <span class="srl">Sub-soal (b)</span>
+          <span class="srv">${s.nilai_b || 0} / 50</span>
+        </div>
+        <div class="score-row">
+          <span class="srl"><strong>Total Soal ${s.num}</strong></span>
+          <span class="srv" style="color:var(--navy); font-size:17px;">${s.total || 0}</span>
+        </div>
+        <div style="margin-top:10px;">${cplChips}</div>
+        <div class="feedback-block">${s.feedback || '—'}</div>
+        ${s.jawaban ? `
+        <div style="margin-top:10px;">
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--text-muted); margin-bottom:4px;">Jawaban Anda (a)</div>
+          <div class="answer-review">${escapeHtml(s.jawaban.a || '(tidak dijawab)')}</div>
+          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.7px; color:var(--text-muted); margin:8px 0 4px;">Jawaban Anda (b)</div>
+          <div class="answer-review">${escapeHtml(s.jawaban.b || '(tidak dijawab)')}</div>
+        </div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/\n/g, '<br>');
+}
+
+// ===== SAVE PDF =====
+function savePDF() {
+  const student = studentData;
+  const nama = student.nama || 'Mahasiswa';
+  const nim = student.nim || 'NIM';
+
+  setLoading(true, 'Membuat dokumen PDF…');
+
+  const el = document.getElementById('result-content');
+  const opt = {
+    margin: [10, 10, 10, 10],
+    filename: `UAS_ALK_${nama.replace(/ /g,'_')}_${nim}.pdf`,
+    image: { type: 'jpeg', quality: 0.95 },
+    html2canvas: { scale: 2, useCORS: true, scrollY: 0 },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(el).save().then(() => {
+    setLoading(false);
+  }).catch(err => {
+    setLoading(false);
+    alert('Gagal membuat PDF. Silakan coba screenshot halaman ini.');
+  });
+}
+</script>
+</body>
+</html>
